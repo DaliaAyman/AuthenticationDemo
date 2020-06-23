@@ -1,5 +1,5 @@
-name: presentation
-description: Presentation layer
+name: common
+description: common libraries
 version: 0.0.1
 author:
 homepage:
@@ -8,20 +8,14 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  domain:
-    path: ../domain
-  flutter_form_bloc: ^0.13.0
-  equatable: ^1.2.0
+  flutter:
+    sdk: flutter
+  get_it: ^4.0.2
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  bloc_test: ^4.0.0
-  mockito: ^4.0.0
-  get_it: ^4.0.2
-
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

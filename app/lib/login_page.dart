@@ -1,4 +1,5 @@
 import 'package:app/success_screen.dart';
+import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:presentation/bloc/index.dart';
@@ -15,15 +16,22 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  LoginBloc loginBloc;
   LoginFormBloc loginFormBloc;
+
+  void initBloc(){
+    loginBloc = Injector.of(context).inject<LoginBloc>();
+    loginFormBloc = Injector.of(context).inject<LoginFormBloc>();
+  }
 
   @override
   Widget build(BuildContext context) {
+    initBloc();
+
     return BlocProvider(
       create: (context) => loginFormBloc,
       child: Builder(
         builder: (context){
-          loginFormBloc = context.bloc<LoginFormBloc>();
 
           return Scaffold(
             resizeToAvoidBottomInset: false,

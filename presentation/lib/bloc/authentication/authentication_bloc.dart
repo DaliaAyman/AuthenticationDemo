@@ -6,7 +6,7 @@ import '../../presentation_index.dart';
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>{
   final UserRepository userRepository;
 
-  AuthenticationBloc({@required this.userRepository})
+  AuthenticationBloc(this.userRepository)
     : assert(userRepository != null);
 
   @override

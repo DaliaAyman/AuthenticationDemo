@@ -15,16 +15,9 @@ class SuccessScreen extends StatelessWidget {
             Icon(Icons.tag_faces, size: 100),
             SizedBox(height: 10),
             Text(
-              'Success',
+              'Login Success',
               style: TextStyle(fontSize: 54, color: Colors.black),
               textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 10),
-            RaisedButton.icon(
-              onPressed: () => Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => LoginPage())),
-              icon: Icon(Icons.replay),
-              label: Text('AGAIN'),
             ),
           ],
         ),

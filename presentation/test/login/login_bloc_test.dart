@@ -16,9 +16,7 @@ void main() {
   setUp(() {
     mockUserRepository = MockUserRepository();
     mockAuthenticationBloc = MockAuthenticationBloc();
-    loginBloc = LoginBloc(
-        userRepository: mockUserRepository,
-        authenticationBloc: mockAuthenticationBloc);
+    loginBloc = LoginBloc(mockUserRepository, mockAuthenticationBloc);
   });
 
   tearDown(() {
@@ -27,11 +25,11 @@ void main() {
   });
 
   test('throws AssertionError when userRepository is null', (){
-    expect(() => LoginBloc(userRepository: null, authenticationBloc: mockAuthenticationBloc), throwsAssertionError);
+    expect(() => LoginBloc(null, mockAuthenticationBloc), throwsAssertionError);
   });
 
   test('throws AssertionError when authenticationBloc is null', (){
-    expect(() => LoginBloc(userRepository: mockUserRepository, authenticationBloc: null), throwsAssertionError);
+    expect(() => LoginBloc(mockUserRepository, null), throwsAssertionError);
   });
 
   test('initial state is correct', () {

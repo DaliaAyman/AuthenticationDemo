@@ -6,6 +6,9 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/app/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/app/build" />
+      <excludeFolder url="file://$MODULE_DIR$/common/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/common/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/common/build" />
       <excludeFolder url="file://$MODULE_DIR$/data/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/data/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/data/build" />

@@ -36,6 +36,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.14.12"
+  common:
+    dependency: transitive
+    description:
+      path: "../common"
+      relative: true
+    source: path
+    version: "0.0.1"
   domain:
     dependency: "direct main"
     description:
@@ -60,6 +67,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  get_it:
+    dependency: transitive
+    description:
+      name: get_it
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.2"
   matcher:
     dependency: transitive
     description:

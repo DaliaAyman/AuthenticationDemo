@@ -25,7 +25,13 @@ dependencies:
     sdk: flutter
   presentation:
     path: ../presentation
+  remote:
+    path: ../remote
+  common:
+    path: ../common
   flutter_form_bloc: ^0.13.0
+  get_it: ^4.0.2
+
 
 
 

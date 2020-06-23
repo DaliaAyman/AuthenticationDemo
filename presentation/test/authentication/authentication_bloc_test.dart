@@ -12,7 +12,7 @@ void main(){
 
   setUp((){
     mockUserRepository = MockUserRepository();
-    authenticationBloc = AuthenticationBloc(userRepository: mockUserRepository);
+    authenticationBloc = AuthenticationBloc(mockUserRepository);
   });
 
   tearDown((){
@@ -21,7 +21,7 @@ void main(){
 
   test('throws AssertionError when userRepository is null', () {
     expect(
-          () => AuthenticationBloc(userRepository: null),
+          () => AuthenticationBloc(null),
       throwsAssertionError,
     );
   });

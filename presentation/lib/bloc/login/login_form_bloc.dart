@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 class LoginFormBloc extends FormBloc<String, String>{
   final LoginBloc loginBloc;
 
-  LoginFormBloc({@required this.loginBloc}) {
+  LoginFormBloc(this.loginBloc) {
     addFieldBlocs(
       fieldBlocs: [
         email, password,
