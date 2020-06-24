@@ -3,8 +3,9 @@ import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:presentation/bloc/index.dart';
-
+import 'package:domain/domain_index.dart';
 import 'loading_dialog.dart';
+import 'package:toast/toast.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);
@@ -19,7 +20,9 @@ class _LoginPageState extends State<LoginPage> {
   LoginBloc loginBloc;
   LoginFormBloc loginFormBloc;
 
-  void initBloc(){
+  UserEntity userEntity;
+
+  void initBloc() {
     loginBloc = Injector.of(context).inject<LoginBloc>();
     loginFormBloc = Injector.of(context).inject<LoginFormBloc>();
   }
@@ -31,35 +34,54 @@ class _LoginPageState extends State<LoginPage> {
     return BlocProvider(
       create: (context) => loginFormBloc,
       child: Builder(
-        builder: (context){
-
+        builder: (context) {
           return Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
               title: Text(widget.title),
             ),
-            body: FormBlocListener<LoginFormBloc, String, String>(
-              onSubmitting: (context, state){
+            body: FormBlocListener<LoginFormBloc, UserEntity, String>(
+              onSubmitting: (context, state) {
                 LoadingDialog.show(context);
               },
-              onSuccess: (context, state){
+              onSuccess: (context, state) {
                 LoadingDialog.hide(context);
 
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (_) => SuccessScreen())
-                );
+                userEntity = state.successResponse;
+
+                if (state is FormBlocSuccess) {
+                  loginBloc.add(LoginButtonPressed(userEntity));
+                }
+//                Navigator.of(context).pushReplacement(
+//                    MaterialPageRoute(builder: (_) => SuccessScreen()));
               },
-              onFailure: (context, state){
+              onFailure: (context, state) {
                 LoadingDialog.hide(context);
 
                 Scaffold.of(context).showSnackBar(
-                    SnackBar(content: Text(state.failureResponse))
-                );
+                    SnackBar(content: Text(state.failureResponse)));
               },
               child: SingleChildScrollView(
                 physics: ClampingScrollPhysics(),
                 child: Column(
                   children: <Widget>[
+                    Container(
+                      child: BlocListener(
+                        bloc: loginBloc,
+                        listener: (BuildContext context, LoginState state) {
+                          if (state is LoginInitial) {
+                            Toast.show('Login Success', context,
+                                duration: Toast.LENGTH_SHORT,
+                                gravity: Toast.BOTTOM);
+                          } else if (state is LoginFailure) {
+                            Toast.show('Login Failure', context,
+                                duration: Toast.LENGTH_SHORT,
+                                gravity: Toast.BOTTOM);
+                          }
+                        },
+                        child: Container(),
+                      ),
+                    ),
                     TextFieldBlocBuilder(
                       textFieldBloc: loginFormBloc.email,
                       keyboardType: TextInputType.multiline,
@@ -82,7 +104,6 @@ class _LoginPageState extends State<LoginPage> {
                         child: Text('LOGIN'),
                       ),
                     ),
-
                   ],
                 ),
               ),

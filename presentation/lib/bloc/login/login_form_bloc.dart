@@ -1,12 +1,11 @@
+import 'package:domain/domain_index.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import '../../presentation_index.dart';
 import 'index.dart';
-import 'package:meta/meta.dart';
 
-class LoginFormBloc extends FormBloc<String, String>{
-  final LoginBloc loginBloc;
+class LoginFormBloc extends FormBloc<UserEntity, String>{
 
-  LoginFormBloc(this.loginBloc) {
+  LoginFormBloc() {
     addFieldBlocs(
       fieldBlocs: [
         email, password,
@@ -29,8 +28,8 @@ class LoginFormBloc extends FormBloc<String, String>{
   //When this method is called, the state of the form will be "FormBlocSubmitting"
   @override
   void onSubmitting() async {
-    loginBloc.add(LoginButtonPressed(email: email.value, password: password.value));
-    emitSuccess();
+    print("emitSuccess onSubmitting");
+    emitSuccess(successResponse: UserEntity(email.value, password.value));
 
 //    if (loginSuccess) {
 //      emitSuccess();

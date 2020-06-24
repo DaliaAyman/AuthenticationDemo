@@ -8,7 +8,7 @@ class PresentationModule extends BaseDIModule{
   @override
   void configure(GetIt getIt) => getIt
       ..registerFactory(() => LoginBloc(getIt<UserRepository>(), getIt<AuthenticationBloc>()))
-      ..registerFactory(() => LoginFormBloc(getIt<LoginBloc>()))
+      ..registerFactory(() => LoginFormBloc())
       ..registerFactory(() => AuthenticationBloc(getIt<UserRepository>()));
 
 }

@@ -12,11 +12,13 @@ void main() {
   MockUserRepository mockUserRepository;
   MockAuthenticationBloc mockAuthenticationBloc;
   LoginBloc loginBloc;
+  UserEntity userEntity;
 
   setUp(() {
     mockUserRepository = MockUserRepository();
     mockAuthenticationBloc = MockAuthenticationBloc();
     loginBloc = LoginBloc(mockUserRepository, mockAuthenticationBloc);
+    userEntity = UserEntity("valid.email", "valid.password");
   });
 
   tearDown(() {
@@ -44,14 +46,13 @@ void main() {
   group('LoginButtonPressed', () {
     blocTest('emits [LoginLoading, LoginInitial], and token on success',
         build: () async {
-          when(mockUserRepository.authenticate("valid email", "valid password"))
+          when(mockUserRepository.authenticate(userEntity))
               .thenAnswer((_) => Future.value("token"));
 
           return loginBloc;
         },
         act: (loginBloc) => loginBloc.add(
-              LoginButtonPressed(
-                  email: "valid email", password: "valid password"),
+              LoginButtonPressed(userEntity),
             ),
         expect: [LoginInProgress(), LoginInitial()],
         verify: (_) async {
@@ -63,17 +64,11 @@ void main() {
     blocTest(
       'emits [LoginLoading, LoginFailure] on failure',
       build: () async {
-        when(mockUserRepository.authenticate(
-          'valid.username',
-          'valid.password',
-        )).thenThrow(Exception('login-error'));
+        when(mockUserRepository.authenticate(userEntity)).thenThrow(Exception('login-error'));
         return loginBloc;
       },
       act: (loginBloc) => loginBloc.add(
-        LoginButtonPressed(
-          email: 'valid.username',
-          password: 'valid.password',
-        ),
+        LoginButtonPressed(userEntity),
       ),
       expect: [
         LoginInProgress(),

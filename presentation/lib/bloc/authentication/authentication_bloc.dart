@@ -37,6 +37,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>{
         yield AuthenticationFailure();
       }
     }catch(e){
+      yield AuthenticationFailure();
       print(e);
     }
   }

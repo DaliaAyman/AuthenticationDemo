@@ -1,25 +1,29 @@
 import 'package:domain/domain_index.dart';
-
+import 'package:data/data_index.dart';
 class UserRepositoryImp extends UserRepository{
 
+  final UserRemoteDataSource userRemoteDataSource;
+
+  UserRepositoryImp(this.userRemoteDataSource);
+
   @override
-  Future<String> authenticate(String email, String password) {
-    return Future.value("token");
+  Future<String> authenticate(UserEntity userEntity) {
+    return userRemoteDataSource.authenticate(userEntity);
   }
 
   @override
   Future<bool> hasToken() {
-    return Future.value(true);
+    return userRemoteDataSource.hasToken();
   }
 
   @override
   Future<void> persistToken(String token) {
-    return Future.value();
+    return userRemoteDataSource.persistToken(token);
   }
 
   @override
   Future<void> deleteToken() {
-    return Future.value();
+    return userRemoteDataSource.deleteToken();
   }
 
 }

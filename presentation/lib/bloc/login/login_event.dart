@@ -1,3 +1,4 @@
+import 'package:domain/domain_index.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:meta/meta.dart';
@@ -8,16 +9,15 @@ abstract class LoginEvent extends Equatable{
 }
 
 class LoginButtonPressed extends LoginEvent{
-  final String email;
-  final String password;
+  final UserEntity userEntity;
 
-  LoginButtonPressed({@required this.email, @required this.password});
+  LoginButtonPressed(this.userEntity);
 
   @override
-  List<Object> get props => [email, password];
+  List<Object> get props => [userEntity];
 
   @override
   String toString() {
-    return "LoginButtonPressed [email: $email, password: $password]";
+    return "LoginButtonPressed [userEntity]";
   }
 }

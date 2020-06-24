@@ -7,6 +7,6 @@ class DataModule extends BaseDIModule{
 
   @override
   void configure(GetIt getIt) => getIt
-    ..registerFactory<UserRepository>(() => UserRepositoryImp());
+    ..registerFactory<UserRepository>(() => UserRepositoryImp(getIt<UserRemoteDataSource>()));
 
 }

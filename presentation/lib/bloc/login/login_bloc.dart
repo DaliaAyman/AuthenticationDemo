@@ -18,9 +18,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState>{
       yield LoginInProgress();
 
       try{
-        final token = await userRepository.authenticate(event.email, event.password);
-        authenticationBloc.add(AuthenticationLoggedIn(token: token));
-        yield LoginInitial();
+        print("LoginButtonPressed event ${event.userEntity}");
+        final token = await userRepository.authenticate(event.userEntity);
+        if(token != null) {
+          authenticationBloc.add(AuthenticationLoggedIn(token: token));
+          yield LoginInitial();
+        }else{
+          yield LoginFailure(error: "Null token");
+        }
       }catch(e){
         yield LoginFailure(error: e.toString());
       }
